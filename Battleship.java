@@ -7,11 +7,12 @@ public class battleship
      
     public board()
     {
-        // initialize an array, 10x10 grid, already declared false?
-        boolean [][] first = new boolean [10][10];
+        // initialize an array, 10x10 grid, already declared 0?
+        // 1 = ship is there, 0 = no ship
+        int [][] first = new int [10][10];
         int dirrection;
     
-        // set each space to false
+        // set each space to 0
         //create 5 ships with lengths 2,3,3,4,5 
         // ship 2
         // int RowTwo = (int)(Math.random() * 10) + 1;
@@ -20,7 +21,7 @@ public class battleship
         
         int ColoumnTwo = ColoumnTwo.randomColoumn();
         int RowTwo = RowTwo.randomRow();
-        first [RowTwo][ColoumnTwo] = true;
+        first [RowTwo][ColoumnTwo] = 1;
         // picks dirrection of the boat, if dirrection = 1 then vertical if dirrection = 2 then horizontal
         int dirrection = dirrection.RanDirrection()
         
@@ -29,11 +30,11 @@ public class battleship
             //makes sure boat wont go off grid
             if(ColoumnTwo == 10)
             {
-                first [RowTwo][ColoumnTwo - 1] = true;
+                first [RowTwo][ColoumnTwo - 1] = 1;
             }
             else
             {
-                first [RowTwo][ColoumnTwo + 1] = true; 
+                first [RowTwo][ColoumnTwo + 1] = 1; 
             }
         }
         else
@@ -41,11 +42,11 @@ public class battleship
             //makes sure boat wont go off grid
             if(RowTwo == 10)
             {
-                first [RowTwo - 1][ColoumnTwo] = true;
+                first [RowTwo - 1][ColoumnTwo] = 1;
             }
             else
             {
-                first [RowTwo + 1][ColoumnTwo] = true;
+                first [RowTwo + 1][ColoumnTwo] = 1;
             }
         }
         
@@ -60,41 +61,67 @@ public class battleship
             int ColoumnThree = ColoumnThree.randomColoumn();
             int RowThree = RowThree.randomRow();
         }
-        while(first [RowThree][ColoumnThree] == true)
+        while(first [RowThree][ColoumnThree] == 1)
         
         
         
-        for(int i=0; i<3; i++)
+        if(DirrectionThree == 1)
         {
-            if(DirrectionThree == 1)
-            {
                 //makes sure boat wont go off grid
-                if(ColoumnTwo == 10 || ColoumnTwo + 1 == 10 || ColoumnTwo + 2 == 10 && ColoumnTwo == false && ColoumnTwo - 1 == false && ColoumnTwo - 2 == false)
-                {
-                    first [RowThree][ColoumnThree - i] = true;
-                }
-                else if(ColoumnTwo == false && ColoumnTwo + 1 == false && ColoumnTwo + 2 == false)
-                {
-                first [RowThree][ColoumnThree + i]  = true; 
-                }
-            }
-            else
+            if(ColoumnThree >= 8)
             {
-                //makes sure boat wont go off grid
-                if(RowTwo == 10)
+                if(first[RowThree][ColoumnThree] == 0 && first[RowThree][ColoumnThree - 1] == 0 && first[RowThree][ColoumnThree - 2] == 0)
                 {
-                    first [RowThree - i][ColoumnThree] = true;
+                    for(int i = 0, i<3, i++)
+                    {
+                        first [RowThree][ColoumnThree - i] = 1;
+                    }
+                }
+                else if(ColoumnTwo == 9)
+                {
+                    for(int i = 0, i<3, i++)
+                    {
+                        first [RowThree - 1][ColoumnThree - i] = 1;
+                    }
                 }
                 else
-                {   
-                    first [RowThree + i][ColoumnThree] = true;
+                {
+                    if(first[RowThree][ColoumnThree] == 0 && first[RowThree][ColoumnThree - 1] == 0 && first[RowThree][ColoumnThree - 2] == 0)
+                    {
+                        for(int i = 0, i<3, i++)
+                        {
+                            first [RowThree - 2][ColoumnThree - i] = 1;
+                        }
+                    }
                 }
+            }
+            else 
+            {
+                if(first[RowThree][ColoumnThree] == 0 && first[RowThree][ColoumnThree + 1] == 0 && first[RowThree][ColoumnThree + 2] == 0)
+                {
+                    first [RowThree][ColoumnThree + i]  = 1; 
+                }
+                
+            }
+            
+        }
+        else
+        {
+            //makes sure boat wont go off grid
+            if(RowTwo == 10)
+            {
+                first [RowThree - i][ColoumnThree] = 1;
+            }
+            else
+            {   
+                first [RowThree + i][ColoumnThree] = 1;
             }
         }
         
-        //create by changing spaces that it occupies into true
+        
+        //create by changing spaces that it occupies into 1
         //pick between 1 or 2 to determine whether its horizontal or vertical
-        // if the boat hits any spaces that is true, move the whole boat one to the side and one up keep going until either hit the edge or is all true. If not possible randomize again
+        // if the boat hits any spaces that is 1, move the whole boat one to the side and one up keep going until either hit the edge or is all 1. If not possible randomize again
         //
     }
     
