@@ -4,7 +4,7 @@ public class Battleship
 {
     boolean hit = false;
     int[][] first = new int[10][10];
-    int[][] arr = new int [10][10];
+
     
     public Battleship()
     {
@@ -75,46 +75,52 @@ public class Battleship
     public void play()
     {
         boolean win = false;
-        IdentBoard();
+        int identical[][] = IdentBoard();
         
         Scanner kb = new Scanner(System.in);
         
         System.out.println("Welcome to battleship!");
         //ask for the player to enter space to shoot 
-        System.out.println("What row do you want to shoot in?");
-        int Pickrow = kb.nextInt();
         
-        do
-        {
-            System.out.println("row number must be less then 10, pick again!");
-            Pickrow = kb.nextInt();
-        }
-        while(Pickrow > 10);
-        
-        System.out.println("What coloumn do you want to shoot in?");
-        int Pickcoloumn = kb.nextInt();
-        
-        do
-        {
-            System.out.println("coloumn number must be less then 10, pick again!");
-            Pickcoloumn = kb.nextInt();
-        }
-        while(Pickcoloumn > 10);
         //since its going to be an array how do I take a command line function and translate that into the array
         // maybe have two command line asks first the column then the Pickrow?
         
         while(win == false)
         {
+             System.out.println("What row do you want to shoot in?");
+            int Pickrow = kb.nextInt();
+        
+            while(Pickrow > 10 || Pickrow < 0)
+            {
+                System.out.println("row number must be less then 10 and greater than 1, pick again!");
+                Pickrow = kb.nextInt();
+            }
+        
+        
+            System.out.println("What coloumn do you want to shoot in?");
+            int Pickcoloumn = kb.nextInt();
+        
+            while(Pickcoloumn > 10 || Pickcoloumn < 0)
+            {
+                System.out.println("coloumn number must be less then 10 and greater than 1, pick again!");
+                Pickcoloumn = kb.nextInt();
+            }
+            
         // now with the array location check to see if the space is marked true or false
-            if(first[Pickrow][Pickcoloumn] == 1)
+            if(first[Pickrow][Pickcoloumn] == 3)
+            {
+                System.out.println("Already shot at the location pick again!");
+            }
+            else if(first[Pickrow][Pickcoloumn] == 1)
             {
                 System.out.println("Hit!");
-                first[Pickrow][Pickcoloumn] = 0;
+                first[Pickrow][Pickcoloumn] = 3;
                 identical[Pickrow][Pickcoloumn] = 1;
             }
             else
             {
                 System.out.println("Miss!");
+                first[Pickrow][Pickcoloumn] = 3;
                 identical[Pickrow][Pickcoloumn] = 2;
             }
         // if marked true print hit and change the value on orgiginal board to false
@@ -135,21 +141,21 @@ public class Battleship
             {
                 for(int j = 0; j < 10; j++)
                 {
-                    if(identical[IdentPickrow + j][IdentPickcoloumn + i] == 1)
+                    if(identical[IdentPickrow + i][IdentPickcoloumn + j] == 1)
                     {
-                        System.out.println("X");
+                        System.out.print("X");
                     }
-                    else if(identical[IdentPickrow + j][IdentPickcoloumn + i] == 2)
+                    else if(identical[IdentPickrow + i][IdentPickcoloumn + j] == 2)
                     {
-                        System.out.println(" ");
+                        System.out.print(" ");
                     }
                     else
                     {
-                        System.out.println("O");
+                        System.out.print("O");
                     }
                 }
+                System.out.println();
             }
-        
         // print identical board, maybe create a different function within the driver
         
         //Check if the game is won
@@ -162,6 +168,7 @@ public class Battleship
             // if all false then keep running the game
             // put the whole code withing a while loop like in die 
             // if game is won, set the boolean to true and print out a winning statement
+            System.out.println();
         }
         
     }
@@ -169,14 +176,14 @@ public class Battleship
     public int[][] IdentBoard()
     {
         //creating new board to print
-        int [][] indentical = new int [10][10];
+        int [][] identical = new int [10][10];
         
         for(int i = 0; i < 10; i++)
         {
             for(int j = 0; j < 10; j++)
             {
                 // a hit will be represented with 1 and print X, a miss will be represented as 2 and print " ", and a regular space will be 3 and print O
-                indentical[i][j] = 3;
+                identical[i][j] = 3;
             }
         }
         return identical;
@@ -189,7 +196,7 @@ public class Battleship
         int placed = 0;
         while(placed < length)
         {
-            if(arr[x][y] == 0)
+            if(first[x][y] == 0)
             {
                 if(d == 1)
                 {
@@ -206,9 +213,9 @@ public class Battleship
             else
             {
                 return false;
-                break;
             }
         }
+        return true;
     }
     
     //changes board
@@ -218,17 +225,17 @@ public class Battleship
         {
             for(int i = 0; i < length; i++)
             {
-                arr[x + i][y] = 1;
+                first[x + i][y] = 1;
             }
         }
         else
         {
-            for(int i = 0; i<Twolength; i++)
+            for(int i = 0; i < length; i++)
             {
-                arr[x][y + i] = 1;
+                first[x][y + i] = 1;
             }
         }
-        return arr;
+        return first;
     }
     
     // 0 == space, 1 == occupied
@@ -247,16 +254,16 @@ public class Battleship
         {
             for(var j = 0; j < 10; j++)
             {
-                if(first[i][j] = 1)
+                if(first[i][j] == 1)
                 {
-                    result = false;
-                    break;
+                    return false;
                 }
             }
         }
         // result = true;
         return true;
     }
+    
     //initializes board
     //take in a array value?
     //iterate through board
