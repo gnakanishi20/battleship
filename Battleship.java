@@ -10,56 +10,59 @@ public class Battleship
     {
         // initialize an array, 10x10 grid, already declared 0?
         // 1 = ship is there, 0 = no ship
-        int dirrection;
-    
+        int d;
+        int coloumn;
+        int row;
+        int length;
+        
         
         for(int i =1; i<3; i++)
         {
-            int d = d.RanDirrection();
-            int Coloumn = (int)(Math.random() * (10 - i));
-            int Row = (int)(Math.random() * (10 - i));
-            int Length = 1 + i;
+            d = RanDirrection();
+            coloumn = (int)(Math.random() * (10 - i));
+            row = (int)(Math.random() * (10 - i));
+            length = 1 + i;
             
-            if(PlaceShip(int Length, int Row, int Coloumn, int d))
+            if(this.placeShip(length, row, coloumn, d))
             {
-                ChangeBoard(int Length, int Row, int Coloumn, int d);
+                changeBoard(length, row, coloumn, d);
             }
             else
             {
-                while(!PlaceShip(int Length, int Row, int Coloumn, int d))
+                while(!placeShip(length, row, coloumn, d))
                 {
-                    int d = d.RanDirrection();
-                    int Coloumn = (int)(Math.random() * (10 - i));
-                    int Row = (int)(Math.random() * (10 - i));
-                    int Length = 1 + i;
+                    d = RanDirrection();
+                    coloumn = (int)(Math.random() * (10 - i));
+                    row = (int)(Math.random() * (10 - i));
+                    length = 1 + i;
                 }
-                ChangeBoard(int Length, int Row, int Coloumn, int d);
+                changeBoard(length, row, coloumn, d);
             }
 
         }
         
         for(int i = 2; i < 5; i++)
         {
-            int d = d.RanDirrection();
-            int Coloumn = (int)(Math.random() * (10 - i));
-            int Row = (int)(Math.random() * (10 - i));
-            int Length = 1 + i;
+            d = RanDirrection();
+            coloumn = (int)(Math.random() * (10 - i));
+            row = (int)(Math.random() * (10 - i));
+            length = 1 + i;
 
             
-            if(PlaceShip(int Length, int Row, int Coloumn, int d))
+            if(placeShip(length, row, coloumn, d))
             {
-                ChangeBoard(int Length, int Row, int Coloumn, int d);
+                changeBoard(length, row, coloumn, d);
             }
             else
             {
-                while(!PlaceShip(int Length, int Row, int Coloumn, int d))
+                while(!placeShip(length, row, coloumn, d))
                 {
-                    int d = d.RanDirrection()
-                    int Coloumn = (int)(Math.random() * (10 - i));
-                    int Row = (int)(Math.random() * (10 - i));
-                    int Length = 1 + i;
+                    d = RanDirrection();
+                    coloumn = (int)(Math.random() * (10 - i));
+                    row = (int)(Math.random() * (10 - i));
+                    length = 1 + i;
                 }
-                ChangeBoard(int Length, int Row, int Coloumn, int d);
+                changeBoard(length, row, coloumn, d);
             }
             
         }
@@ -72,49 +75,47 @@ public class Battleship
     public void play()
     {
         boolean win = false;
-        
-        int first[][] = new board();
-        
+        IdentBoard();
         
         Scanner kb = new Scanner(System.in);
         
         System.out.println("Welcome to battleship!");
         //ask for the player to enter space to shoot 
         System.out.println("What row do you want to shoot in?");
-        int PickRow = kb.nextInt();
+        int Pickrow = kb.nextInt();
         
         do
         {
-            System.out.println("Row number must be less then 10, pick again!");
-            PickRow = kb.nextInt();
+            System.out.println("row number must be less then 10, pick again!");
+            Pickrow = kb.nextInt();
         }
-        while(PickRow > 10);
+        while(Pickrow > 10);
         
-        System.out.println("What Coloumn do you want to shoot in?");
-        int PickColoumn = kb.nextInt();
+        System.out.println("What coloumn do you want to shoot in?");
+        int Pickcoloumn = kb.nextInt();
         
         do
         {
-            System.out.println("Coloumn number must be less then 10, pick again!");
-            PickColoumn = kb.nextInt();
+            System.out.println("coloumn number must be less then 10, pick again!");
+            Pickcoloumn = kb.nextInt();
         }
-        while(PickColoumn > 10);
+        while(Pickcoloumn > 10);
         //since its going to be an array how do I take a command line function and translate that into the array
-        // maybe have two command line asks first the column then the PickRow?
+        // maybe have two command line asks first the column then the Pickrow?
         
         while(win == false)
         {
         // now with the array location check to see if the space is marked true or false
-            if(first [PickRow][PickColoumn] == true)
+            if(first[Pickrow][Pickcoloumn] == 1)
             {
                 System.out.println("Hit!");
-                first[PickRow][PickColoumn] = 0;
-                identical[PickRow][PickColoumn] = 1;
+                first[Pickrow][Pickcoloumn] = 0;
+                identical[Pickrow][Pickcoloumn] = 1;
             }
             else
             {
                 System.out.println("Miss!");
-                identical[PickRow][PickColoumn] = 2;
+                identical[Pickrow][Pickcoloumn] = 2;
             }
         // if marked true print hit and change the value on orgiginal board to false
         // on the identical board change the print value to 1 to make it print an X
@@ -127,18 +128,18 @@ public class Battleship
         // maybe create an identical board that is the one that is printed on the screen
         // this printed board will have the hit and misses that the player guessed
         // yes I will do that 
-            int IdentPickRow = 0;
-            int IdentPickColoumn = 0;
+            int IdentPickrow = 0;
+            int IdentPickcoloumn = 0;
         
             for(int i = 0; i < 10; i++)
             {
                 for(int j = 0; j < 10; j++)
                 {
-                    if(identical[IdentPickRow + j][IdentPickColoumn + i] == 1)
+                    if(identical[IdentPickrow + j][IdentPickcoloumn + i] == 1)
                     {
                         System.out.println("X");
                     }
-                    else if(identical[IdentPickRow + j][IdentPickColoumn + i] == 2)
+                    else if(identical[IdentPickrow + j][IdentPickcoloumn + i] == 2)
                     {
                         System.out.println(" ");
                     }
@@ -168,14 +169,14 @@ public class Battleship
     public int[][] IdentBoard()
     {
         //creating new board to print
-        int [][] indentical = new int [10][10]
+        int [][] indentical = new int [10][10];
         
         for(int i = 0; i < 10; i++)
         {
             for(int j = 0; j < 10; j++)
             {
                 // a hit will be represented with 1 and print X, a miss will be represented as 2 and print " ", and a regular space will be 3 and print O
-                indentical [i][j] = 3;
+                indentical[i][j] = 3;
             }
         }
         return identical;
@@ -183,7 +184,7 @@ public class Battleship
     
     //run until true, b=put in another function
     
-    public boolean PlaceShip(int length, int x, int y, int d)
+    public boolean placeShip(int length, int x, int y, int d)
     {
         int placed = 0;
         while(placed < length)
@@ -211,7 +212,7 @@ public class Battleship
     }
     
     //changes board
-    public int[][] ChangeBoard(int length, int x, int y, int d)
+    public int[][] changeBoard(int length, int x, int y, int d)
     {
         if(d == 1)
         {
@@ -222,7 +223,7 @@ public class Battleship
         }
         else
         {
-            for(int i = 0; i<TwoLength; i++)
+            for(int i = 0; i<Twolength; i++)
             {
                 arr[x][y + i] = 1;
             }
@@ -234,7 +235,7 @@ public class Battleship
     
     public int RanDirrection()
     {
-        int dirrection = (int)(Math.random() * 2);
+        int dirrection = (int)(Math.random() * 2) + 1;
         return dirrection;
     }
     
