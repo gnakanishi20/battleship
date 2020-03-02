@@ -8,14 +8,13 @@ public class Battleship
     
     public Battleship()
     {
-        // initialize an array, 10x10 grid, already declared 0?
-        // 1 = ship is there, 0 = no ship
+
         int d;
         int coloumn;
         int row;
         int length;
         
-        
+        // places ships with length 2,3
         for(int i =1; i<3; i++)
         {
             d = RanDirrection();
@@ -23,6 +22,7 @@ public class Battleship
             row = (int)(Math.random() * (10 - i));
             length = 1 + i;
             
+            //Checks to see if we can place the ship at the locations then if can places, if not changes the values until we can
             if(this.placeShip(length, row, coloumn, d))
             {
                 changeBoard(length, row, coloumn, d);
@@ -38,9 +38,9 @@ public class Battleship
                 }
                 changeBoard(length, row, coloumn, d);
             }
-
         }
         
+        //places ships with length 3,4,5
         for(int i = 2; i < 5; i++)
         {
             d = RanDirrection();
@@ -48,7 +48,7 @@ public class Battleship
             row = (int)(Math.random() * (10 - i));
             length = 1 + i;
 
-            
+             //Checks to see if we can place the ship at the locations then if can places, if not changes the values until we can
             if(placeShip(length, row, coloumn, d))
             {
                 changeBoard(length, row, coloumn, d);
@@ -66,15 +66,13 @@ public class Battleship
             }
             
         }
-        //create by changing spaces that it occupies into 1
-        //pick between 1 or 2 to determine whether its horizontal or vertical
-        // if the boat hits any spaces that is 1, move the whole boat one to the side and one up keep going until either hit the edge or is all 1. If not possible randomize again
-        //
+
     }
      
     public void play()
     {
         boolean win = false;
+        //calls the identical board
         int identical[][] = IdentBoard();
         
         Scanner kb = new Scanner(System.in);
@@ -89,14 +87,14 @@ public class Battleship
         {
              System.out.println("What row do you want to shoot in?");
             int Pickrow = kb.nextInt() - 1;
-        
+            // sets the parameters of input, add something that makes sure its an int
             while(Pickrow > 10 || Pickrow < 0)
             {
                 System.out.println("row number must be between 1 and 10, pick again!");
                 Pickrow = kb.nextInt() - 1;
             }
         
-        
+            // sets the parameters of input
             System.out.println("What coloumn do you want to shoot in?");
             int Pickcoloumn = kb.nextInt() - 1;
         
@@ -106,7 +104,7 @@ public class Battleship
                 Pickcoloumn = kb.nextInt() - 1;
             }
             
-        // now with the array location check to see if the space is marked true or false
+            // checks to see if user had a hit miss or already shot in location
             if(first[Pickrow][Pickcoloumn] == 3)
             {
                 System.out.println("Already shot at the location pick again!");
@@ -123,40 +121,36 @@ public class Battleship
                 first[Pickrow][Pickcoloumn] = 3;
                 identical[Pickrow][Pickcoloumn] = 2;
             }
-        // if marked true print hit and change the value on orgiginal board to false
-        // on the identical board change the print value to 1 to make it print an X
-            // will I implement something about sinking a ship?! how would I do that 
-            
-        // if marked false print miss!
-            // Code a miss into the identical board, the print line will change it into the miss symbol, which will be a space "  " will represent miss, value will b 2
-                // a regular space will be printed as a O and be represented as the value 3
-            
-        // maybe create an identical board that is the one that is printed on the screen
-        // this printed board will have the hit and misses that the player guessed
-        // yes I will do that 
+
+            //delcares variables for the print
             int IdentPickrow = 0;
             int IdentPickcoloumn = 0;
-        
+            
+            // prints out the board
             for(int i = 0; i < 10; i++)
             {
                 for(int j = 0; j < 10; j++)
                 {
                     if(identical[IdentPickrow + i][IdentPickcoloumn + j] == 1)
                     {
+                        //represents a hit
                         System.out.print("X");
                     }
                     else if(identical[IdentPickrow + i][IdentPickcoloumn + j] == 2)
                     {
+                        //represents a miss
                         System.out.print(" ");
                     }
                     else
                     {
+                        //represents a space not already shot at
                         System.out.print("O");
                     }
                 }
+                //prints a line break between each row
                 System.out.println();
             }
-        // print identical board, maybe create a different function within the driver
+
         
         //Check if the game is won
             if(dub())
@@ -164,10 +158,8 @@ public class Battleship
                 System.out.println("Congratulations you won!");
                 win = true;
             }
-            // do this by checking if the original board is all false
-            // if all false then keep running the game
-            // put the whole code withing a while loop like in die 
-            // if game is won, set the boolean to true and print out a winning statement
+            
+            //prints out a line break between each board and next round
             System.out.println();
         }
         
@@ -189,13 +181,13 @@ public class Battleship
         return identical;
     }
     
-    //run until true, b=put in another function
-    
+    // checks to see if we can place the ship in the spaces
     public boolean placeShip(int length, int x, int y, int d)
     {
         int placed = 0;
         while(placed < length)
         {
+            //checks to see that the space is unoccupied
             if(first[x][y] == 0)
             {
                 if(d == 1)
@@ -212,15 +204,17 @@ public class Battleship
             }
             else
             {
+                //returns false if the space is occupied, the quits the method
                 return false;
             }
         }
         return true;
     }
     
-    //changes board
+    //changes board, places ships
     public int[][] changeBoard(int length, int x, int y, int d)
     {
+        // if the dirrection is horrizontal
         if(d == 1)
         {
             for(int i = 0; i < length; i++)
@@ -228,6 +222,7 @@ public class Battleship
                 first[x + i][y] = 1;
             }
         }
+        // if the dirrection is vertical
         else
         {
             for(int i = 0; i < length; i++)
@@ -238,14 +233,14 @@ public class Battleship
         return first;
     }
     
-    // 0 == space, 1 == occupied
-    
+    // creates the random dirrection
     public int RanDirrection()
     {
         int dirrection = (int)(Math.random() * 2) + 1;
         return dirrection;
     }
     
+    //checks to see if the game is won
     public boolean dub()
     {
         // I am using var to check if everything in the interval is 0
@@ -263,10 +258,5 @@ public class Battleship
         // result = true;
         return true;
     }
-    
-    //initializes board
-    //take in a array value?
-    //iterate through board
-    //check if hit or not?
     
 }
