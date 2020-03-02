@@ -88,22 +88,22 @@ public class Battleship
         while(win == false)
         {
              System.out.println("What row do you want to shoot in?");
-            int Pickrow = kb.nextInt();
+            int Pickrow = kb.nextInt() - 1;
         
             while(Pickrow > 10 || Pickrow < 0)
             {
-                System.out.println("row number must be less then 10 and greater than 1, pick again!");
-                Pickrow = kb.nextInt();
+                System.out.println("row number must be between 1 and 10, pick again!");
+                Pickrow = kb.nextInt() - 1;
             }
         
         
             System.out.println("What coloumn do you want to shoot in?");
-            int Pickcoloumn = kb.nextInt();
+            int Pickcoloumn = kb.nextInt() - 1;
         
             while(Pickcoloumn > 10 || Pickcoloumn < 0)
             {
-                System.out.println("coloumn number must be less then 10 and greater than 1, pick again!");
-                Pickcoloumn = kb.nextInt();
+                System.out.println("coloumn number must be between 1 and 10, pick again!");
+                Pickcoloumn = kb.nextInt() - 1;
             }
             
         // now with the array location check to see if the space is marked true or false
