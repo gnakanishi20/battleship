@@ -127,24 +127,40 @@ public class Battleship
             int IdentPickcoloumn = 0;
             
             // prints out the board
+            System.out.print("   ");
+            for(int i = 1; i < 11; i++)
+            {
+                System.out.print(i + " ");
+            }
+            System.out.println();
+            
             for(int i = 0; i < 10; i++)
             {
+                if(i == 9)
+                {
+                    System.out.print((i + 1) + " ");
+                }
+                else
+                {
+                    System.out.print((i + 1) + "  ");
+                }
+                
                 for(int j = 0; j < 10; j++)
                 {
                     if(identical[IdentPickrow + i][IdentPickcoloumn + j] == 1)
                     {
                         //represents a hit
-                        System.out.print("X");
+                        System.out.print("X ");
                     }
                     else if(identical[IdentPickrow + i][IdentPickcoloumn + j] == 2)
                     {
                         //represents a miss
-                        System.out.print(" ");
+                        System.out.print("  ");
                     }
                     else
                     {
                         //represents a space not already shot at
-                        System.out.print("O");
+                        System.out.print("O ");
                     }
                 }
                 //prints a line break between each row
