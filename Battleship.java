@@ -83,6 +83,7 @@ public class Battleship
         String bank = "one two three four five six seven eight nine ten";
         String checkBank = "holder";
         String checkBankCol = "holder";
+        String checkSingleLetter = "a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W X Y Z";
         
         System.out.println("Welcome to battleship!");
         //ask for the player to enter space to shoot 
@@ -106,9 +107,15 @@ public class Battleship
             
             if(name.length() == 1 || name.length() == 2)
             {
-                if(name.length() == 1)
+                if(name.length() == 1 && !checkSingleLetter.contains(name))
                 {
                     Pickrow = Integer.parseInt(name) - 1;
+                }
+                else if(checkSingleLetter.contains(name))
+                {
+                    System.out.println("row number must be between 1 and 10, pick again and input must be a number!");
+                    String firstName = kb.nextLine();
+                    Pickrow = Integer.parseInt(firstName) - 1;
                 }
                 else
                 {
@@ -120,38 +127,46 @@ public class Battleship
                     {
                         while(Pickrow > 10 || Pickrow < 0)
                         {
-                            System.out.println("row number must be between 1 and 10, pick again!");
+                            System.out.println("coloumn number must be between 1 and 10, pick again!");
                             Pickrow = kb.nextInt() - 1;
                         }
                     }
                 }
-                // while(Pickrow > 10 || Pickrow < 0)
-                // {
-                //     System.out.println("row number must be between 1 and 10, pick again!");
-                //     Pickrow = kb.nextInt() - 1;
-                // }
+                
             }
-            // else if(Integer.parseInt(name) == 10)
-            // {
-            //     Pickrow = Integer.parseInt(name) - 1;
-            // }
             else
             {
                 String fred = name.toLowerCase();
+                boolean doesContain = bank.contains(fred);
+               
                 for(int i = 0; i < 10; i++)
                 {
                     if(input[i].equals(fred))
                     {
                         break; 
                     }
-                    // else if(i == 9)
+                    // else if(!bank.contains(fred))
                     // {
                     //     while(!bank.contains(checkBank))
                     //     {
                     //         System.out.println("row number must be between one and ten, pick again and type in the number!");
                     //         String check = kb.nextLine();
                     //         checkBank = check.toLowerCase();
-                    //     }    
+                    //         for(int j = 0; j < 10; j++)
+                    //         {
+                    //             if(input[i].equals(check))
+                    //             {
+                    //                 break; 
+                    //             }
+                    //             else
+                    //             {
+                    //                 counter++;
+                    //                 Pickrow = counter;
+                    //             }
+                    //         }
+                            
+                            
+                    //     }  
                     // }
                     else
                     {
@@ -160,18 +175,9 @@ public class Battleship
                     }
                 }
             }
-        
-    
-            // }
             
            
-            // sets the parameters of input, add something that makes sure its an int
-            // while(Pickrow > 10 || Pickrow < 0)
-            // {
-            //     System.out.println("row number must be between 1 and 10, pick again!");
-            //     Pickrow = kb.nextInt() - 1;
-            // }
-        
+           
             // sets the parameters of input
             System.out.println("What coloumn do you want to shoot in?");
            
@@ -183,6 +189,12 @@ public class Battleship
                 {
                     Pickcoloumn = Integer.parseInt(nameCol) - 1;
                 }
+                else if(checkSingleLetter.contains(nameCol))
+                {
+                    System.out.println("coloumn number must be between 1 and 10, pick again and input must be a number!");
+                    String secondName = kb.nextLine();
+                    Pickcoloumn = Integer.parseInt(secondName) - 1;
+                }
                 else
                 {
                     if(Integer.parseInt(nameCol) == 10)
@@ -193,16 +205,13 @@ public class Battleship
                     {
                         while(Pickcoloumn > 10 || Pickcoloumn < 0)
                         {
-                            System.out.println("row number must be between 1 and 10, pick again!");
+                            System.out.println("coloumn number must be between 1 and 10, pick again!");
                             Pickcoloumn = kb.nextInt() - 1;
                         }
                     }
                 }
             }
-            // else if(Integer.parseInt(nameCol) == 10)
-            // {
-            //     Pickrow = Integer.parseInt(nameCol) - 1;
-            // }
+           
             else
             {
                 String fredCol = nameCol.toLowerCase();
@@ -212,14 +221,29 @@ public class Battleship
                     {
                         break; 
                     }
-                    // else if(i == 9)
+                    // else if(!bank.contains(fredCol))
                     // {
                     //     while(!bank.contains(checkBankCol))
                     //     {
                     //         System.out.println("coloumn number must be between one and ten, pick again and type in the number!");
                     //         String checkCol = kb.nextLine();
                     //         checkBankCol = checkCol.toLowerCase();
-                    //     }                    
+                    //         for(int j = 0; j < 10; j++)
+                    //         {
+                    //             if(input[j].equals(checkCol))
+                    //             {
+                    //                 break; 
+                    //             }
+                    //             else
+                    //             {
+                    //                 counterCol++;
+                    //                 Pickcoloumn = counterCol;
+                    //             }
+                    //         }
+                            
+                            
+                    //     }  
+                        
                     // }
                     else
                     {
