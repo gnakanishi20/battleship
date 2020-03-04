@@ -1,14 +1,13 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Battleship
 {
     boolean hit = false;
     int[][] first = new int[10][10];
 
-    
     public Battleship()
     {
-
         int d;
         int coloumn;
         int row;
@@ -64,9 +63,7 @@ public class Battleship
                 }
                 changeBoard(length, row, coloumn, d);
             }
-            
         }
-
     }
      
     public void play()
@@ -77,6 +74,16 @@ public class Battleship
         
         Scanner kb = new Scanner(System.in);
         
+        boolean ifInt;
+        boolean ifIntCol;
+        boolean run = false;
+       
+
+        String[] input = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"};
+        String bank = "one two three four five six seven eight nine ten";
+        String checkBank = "holder";
+        String checkBankCol = "holder";
+        
         System.out.println("Welcome to battleship!");
         //ask for the player to enter space to shoot 
         
@@ -85,24 +92,105 @@ public class Battleship
         
         while(win == false)
         {
-             System.out.println("What row do you want to shoot in?");
-            int Pickrow = kb.nextInt() - 1;
-            // sets the parameters of input, add something that makes sure its an int
-            while(Pickrow > 10 || Pickrow < 0)
+            int Pickrow = 0;
+            int Pickcoloumn = 0;
+            int counter = 0;
+            int counterCol = 0;
+      
+            System.out.println("What row do you want to shoot in?");
+            // String inputRow = kb.nextLine();
+            ifInt = kb.hasNextInt();
+            // kb.reset();
+
+            
+            if(ifInt == true)
             {
-                System.out.println("row number must be between 1 and 10, pick again!");
                 Pickrow = kb.nextInt() - 1;
+                while(Pickrow > 10 || Pickrow < 0)
+                {
+                    System.out.println("row number must be between 1 and 10, pick again!");
+                    Pickrow = kb.nextInt() - 1;
+                }
             }
+            else
+            {
+                String name = kb.nextLine();
+                String fred = name.toLowerCase();
+                for(int i = 0; i < 10; i++)
+                {
+                    if(input[i].equals(fred))
+                    {
+                        break; 
+                    }
+                    else if(i == 9)
+                    {
+                        while(!bank.contains(checkBank))
+                        {
+                            System.out.println("row number must be between one and ten, pick again and type in the number!");
+                            String check = kb.nextLine();
+                            checkBank = check.toLowerCase();
+                        }    
+                    }
+                    else
+                    {
+                        counter++;
+                        Pickrow = counter;
+                    }
+                }
+            }
+        
+    
+            // }
+            
+           
+            // sets the parameters of input, add something that makes sure its an int
+            // while(Pickrow > 10 || Pickrow < 0)
+            // {
+            //     System.out.println("row number must be between 1 and 10, pick again!");
+            //     Pickrow = kb.nextInt() - 1;
+            // }
         
             // sets the parameters of input
             System.out.println("What coloumn do you want to shoot in?");
-            int Pickcoloumn = kb.nextInt() - 1;
+           
+            ifIntCol = kb.hasNextInt();
         
-            while(Pickcoloumn > 10 || Pickcoloumn < 0)
+            if(ifIntCol == true)
             {
-                System.out.println("coloumn number must be between 1 and 10, pick again!");
                 Pickcoloumn = kb.nextInt() - 1;
+                while(Pickcoloumn > 10 || Pickcoloumn < 0)
+                {
+                    System.out.println("coloumn number must be between 1 and 10, pick again!");
+                    Pickcoloumn = kb.nextInt() - 1;
+                }
             }
+            else
+            {
+                String nameCol = kb.nextLine();
+                String fredCol = nameCol.toLowerCase();
+                for(int i = 0; i < 10; i++)
+                {
+                    if(input[i].equals(fredCol))
+                    {
+                        break; 
+                    }
+                    else if(i == 9)
+                    {
+                        while(!bank.contains(checkBankCol))
+                        {
+                            System.out.println("coloumn number must be between one and ten, pick again and type in the number!");
+                            String checkCol = kb.nextLine();
+                            checkBankCol = checkCol.toLowerCase();
+                        }                    
+                    }
+                    else
+                    {
+                        counterCol++;
+                        Pickcoloumn = counterCol;
+                    }
+                }
+            }
+            
             
             // checks to see if user had a hit miss or already shot in location
             if(first[Pickrow][Pickcoloumn] == 3)
