@@ -96,25 +96,47 @@ public class Battleship
             int Pickcoloumn = 0;
             int counter = 0;
             int counterCol = 0;
-      
+            
+
             System.out.println("What row do you want to shoot in?");
             // String inputRow = kb.nextLine();
-            ifInt = kb.hasNextInt();
-            // kb.reset();
-
+            String name = kb.nextLine();
             
-            if(ifInt == true)
+            
+            
+            if(name.length() == 1 || name.length() == 2)
             {
-                Pickrow = kb.nextInt() - 1;
-                while(Pickrow > 10 || Pickrow < 0)
+                if(name.length() == 1)
                 {
-                    System.out.println("row number must be between 1 and 10, pick again!");
-                    Pickrow = kb.nextInt() - 1;
+                    Pickrow = Integer.parseInt(name) - 1;
                 }
+                else
+                {
+                    if(Integer.parseInt(name) == 10)
+                    {
+                        Pickrow = Integer.parseInt(name) - 1;
+                    }
+                    else
+                    {
+                        while(Pickrow > 10 || Pickrow < 0)
+                        {
+                            System.out.println("row number must be between 1 and 10, pick again!");
+                            Pickrow = kb.nextInt() - 1;
+                        }
+                    }
+                }
+                // while(Pickrow > 10 || Pickrow < 0)
+                // {
+                //     System.out.println("row number must be between 1 and 10, pick again!");
+                //     Pickrow = kb.nextInt() - 1;
+                // }
             }
+            // else if(Integer.parseInt(name) == 10)
+            // {
+            //     Pickrow = Integer.parseInt(name) - 1;
+            // }
             else
             {
-                String name = kb.nextLine();
                 String fred = name.toLowerCase();
                 for(int i = 0; i < 10; i++)
                 {
@@ -122,15 +144,15 @@ public class Battleship
                     {
                         break; 
                     }
-                    else if(i == 9)
-                    {
-                        while(!bank.contains(checkBank))
-                        {
-                            System.out.println("row number must be between one and ten, pick again and type in the number!");
-                            String check = kb.nextLine();
-                            checkBank = check.toLowerCase();
-                        }    
-                    }
+                    // else if(i == 9)
+                    // {
+                    //     while(!bank.contains(checkBank))
+                    //     {
+                    //         System.out.println("row number must be between one and ten, pick again and type in the number!");
+                    //         String check = kb.nextLine();
+                    //         checkBank = check.toLowerCase();
+                    //     }    
+                    // }
                     else
                     {
                         counter++;
@@ -153,20 +175,36 @@ public class Battleship
             // sets the parameters of input
             System.out.println("What coloumn do you want to shoot in?");
            
-            ifIntCol = kb.hasNextInt();
+            String nameCol = kb.nextLine();
         
-            if(ifIntCol == true)
+            if(nameCol.length() == 1 || nameCol.length() == 2)
             {
-                Pickcoloumn = kb.nextInt() - 1;
-                while(Pickcoloumn > 10 || Pickcoloumn < 0)
+                if(nameCol.length() == 1)
                 {
-                    System.out.println("coloumn number must be between 1 and 10, pick again!");
-                    Pickcoloumn = kb.nextInt() - 1;
+                    Pickcoloumn = Integer.parseInt(nameCol) - 1;
+                }
+                else
+                {
+                    if(Integer.parseInt(nameCol) == 10)
+                    {
+                        Pickcoloumn = Integer.parseInt(nameCol) - 1;
+                    }
+                    else
+                    {
+                        while(Pickcoloumn > 10 || Pickcoloumn < 0)
+                        {
+                            System.out.println("row number must be between 1 and 10, pick again!");
+                            Pickcoloumn = kb.nextInt() - 1;
+                        }
+                    }
                 }
             }
+            // else if(Integer.parseInt(nameCol) == 10)
+            // {
+            //     Pickrow = Integer.parseInt(nameCol) - 1;
+            // }
             else
             {
-                String nameCol = kb.nextLine();
                 String fredCol = nameCol.toLowerCase();
                 for(int i = 0; i < 10; i++)
                 {
@@ -174,15 +212,15 @@ public class Battleship
                     {
                         break; 
                     }
-                    else if(i == 9)
-                    {
-                        while(!bank.contains(checkBankCol))
-                        {
-                            System.out.println("coloumn number must be between one and ten, pick again and type in the number!");
-                            String checkCol = kb.nextLine();
-                            checkBankCol = checkCol.toLowerCase();
-                        }                    
-                    }
+                    // else if(i == 9)
+                    // {
+                    //     while(!bank.contains(checkBankCol))
+                    //     {
+                    //         System.out.println("coloumn number must be between one and ten, pick again and type in the number!");
+                    //         String checkCol = kb.nextLine();
+                    //         checkBankCol = checkCol.toLowerCase();
+                    //     }                    
+                    // }
                     else
                     {
                         counterCol++;
