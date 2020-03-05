@@ -125,11 +125,13 @@ public class Battleship
                     }
                     else
                     {
-                        while(Pickrow > 10 || Pickrow < 0)
+                        while(Integer.parseInt(name) > 10 || Integer.parseInt(name) < 0)
                         {
-                            System.out.println("coloumn number must be between 1 and 10, pick again!");
-                            Pickrow = kb.nextInt() - 1;
+                            System.out.println("row number must be between 1 and 10, pick again!");
+                            String numCheckFirst = kb.nextLine();
+                            name = numCheckFirst;
                         }
+                        Pickrow = Integer.parseInt(name) - 1;
                     }
                 }
                 
@@ -203,11 +205,13 @@ public class Battleship
                     }
                     else
                     {
-                        while(Pickcoloumn > 10 || Pickcoloumn < 0)
+                        while(Integer.parseInt(nameCol) > 10 || Integer.parseInt(nameCol) < 0)
                         {
                             System.out.println("coloumn number must be between 1 and 10, pick again!");
-                            Pickcoloumn = kb.nextInt() - 1;
+                            String numCheck = kb.nextLine();
+                            nameCol = numCheck;
                         }
+                        Pickcoloumn = Integer.parseInt(nameCol) - 1;
                     }
                 }
             }
